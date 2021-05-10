@@ -154,7 +154,7 @@ class Database:
     def get_user(self, e):
         user = self.get_object_by_attr(User, "email", e)
         if user:
-            return user[0].email, user[0].username
+            return user
 
     def add_user(self, e, u, p):
         user = User()
@@ -162,6 +162,14 @@ class Database:
         user.username = u
         user.password = p
         self.add_object(user)
+
+    def add_comment(self, m, t, u):
+        comment = Comment()
+        comment.text = m
+        comment.thread = t
+        comment.author = u
+        self.add_object(comment)
+
 
     def list_threads(self):
         return self.list_query(self.query(Thread))

@@ -46,4 +46,5 @@ class RetterApp(MDApp):
 
 app = RetterApp()
 app.db = Database(dbtype='sqlite', dbname='retter.db')
+app.user = None
 app.run()

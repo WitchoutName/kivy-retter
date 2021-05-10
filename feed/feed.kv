@@ -60,6 +60,27 @@
                     size_hint_y: None
                     height: self.texture_size[1]
                     pos_hint: {"center_y": .5}
+            MDGridLayout:
+                id: comments
+                pos_hint: {'center_x': .5, 'center_y': 1}
+                cols: 1
+                spacing: 20
+                size_hint_y: None
+                height: self.minimum_height
+
+            MDBoxLayout:
+                id: comment
+                adaptive_height: True
+                TextInput:
+                    id: coment_message
+                    font_size: (root.width**2 + root.height**2) / 13**4
+                    multiline: False
+                MDIconButton:
+                    id: comment_submit
+                    icon: "send"
+
+
+
 
 
 <Likes@MDBoxLayout>

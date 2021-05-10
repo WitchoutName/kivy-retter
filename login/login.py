@@ -5,6 +5,8 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 
+from database import User
+
 
 class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
@@ -41,8 +43,11 @@ class LoginWindow(Screen):
     def loginBtn(self):
         if App.get_running_app().db.validate(self.email.text, self.password.text):
             MainWindow.current = self.email.text
-            self.reset()
+            user = App.get_running_app().db.get_user(self.email.text)[0]
+            print(user)
+            App.get_running_app().user = user
             App.get_running_app().sm.current = "bottom"
+            self.reset()
         else:
             invalidLogin()
 

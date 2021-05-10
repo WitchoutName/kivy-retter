@@ -48,9 +48,16 @@ class ThreadContent(BoxLayout):
         comments = self.thread.comments
         self.ids.dialog_comments.text = f"Comments({len(comments) if comments else 0})"
         self.ids.dialog_like_btn.on_press = lambda: like_post(self.thread, self, "dialog_likes")
+        self.ids.comment_submit.on_press = lambda: self.add_comment(self.ids.coment_message.text)
         if comments:
+            self.ids.comments.clear_widgets()
             for comment in comments:
-                self.ids.grid.add_widget(Comment(comment))
+                self.ids.comments.add_widget(Comment(comment))
+
+    def add_comment(self, message):
+        self.app.db.add_comment(message, self.thread, self.app.user)
+        self.ids.coment_message.text = ""
+        self.setup()
 
 
 class LocationPopupMenu(MDDialog):
