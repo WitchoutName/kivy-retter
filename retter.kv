@@ -1,0 +1,20 @@
+#:include login/login.kv
+#:include feed/feed.kv
+
+
+<BottomNav@Screen>:
+    name: "bottom"
+    MDBottomNavigation:
+        id: navigation
+        panel_color: .2, .2, .2, 1
+        MDBottomNavigationItem:
+            name: 'screen 0'
+            text: 'Feed'
+            icon: 'newspaper-variant-outline'
+            FeedScreen:
+        MDBottomNavigationItem:
+            name: 'screen 1'
+            text: 'My posts'
+            icon: 'newspaper-variant-outline'
+            FeedScreen:
+
