@@ -32,8 +32,8 @@ class Thread(Base):
     author = relationship("User", back_populates="threads")
     comments = relationship("Comment", back_populates="thread")
     date = Column(DateTime, default=datetime.datetime.utcnow)
-    tags = Column(String)
-    image = Column(Boolean)
+    tags = Column(String, default="")
+    image = Column(Boolean, default=False)
     likes = Column(Integer, default=0)
 
 
@@ -117,14 +117,14 @@ class Database:
             return self.list_query(self.filter_query(self.query(object), contition(getattr(object, by), attr)))
         except Exception as e:
             print(e.__traceback__.tb_next)
-            return False
+            return None
 
     def get_object_by_relation(self, object, rel, by=None, value=None, contition=lambda b, v: True):
         try:
             return self.list_query(self.filter_query(self.join_query(self.query(object), rel), contition(by, value)))
         except Exception as e:
             print(e.__traceback__.tb_next)
-            return False
+            return None
 
     def update(self):
         try:
@@ -143,3 +143,25 @@ class Database:
         except Exception as e:
             print(e.__traceback__.tb_next)
             return False
+
+    def validate(self, email, pswd):
+        user = self.get_object_by_attr(User, "email", email)
+        if len(user) > 0:
+            return user[0].password == pswd
+        else:
+            return False
+
+    def get_user(self, e):
+        user = self.get_object_by_attr(User, "email", e)
+        if user:
+            return user[0].email, user[0].username
+
+    def add_user(self, e, u, p):
+        user = User()
+        user.email = e
+        user.username = u
+        user.password = p
+        self.add_object(user)
+
+    def list_threads(self):
+        return self.list_query(self.query(Thread))

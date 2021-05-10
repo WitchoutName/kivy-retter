@@ -1,0 +1,201 @@
+<ThreadContent>:
+    orientation: 'vertical'
+    size_hint_x: 1
+    size_hint_y: None
+    height: app.root.height - dp(100)
+
+    ScrollView:
+        size_hint_y: .2
+        pos_hint: {'center_x': .5, 'top_y': 1}
+        MDGridLayout:
+            id: grid
+            pos_hint: {'center_x': .5, 'center_y': 1}
+            cols: 1
+            spacing: 20
+            size_hint_y: None
+            height: self.minimum_height
+
+            TwoLineAvatarListItem:
+                id: dialog_author
+                text: "Author"
+                secondary_text: "YYYY-MM-DD"
+                #size_hint: 1, None
+
+                ImageLeftWidget:
+                    source: "assets/avatar.png"
+
+            MDLabel:
+                id: dialog_description
+                size_hint_y: None
+                text: ''
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            Image:
+                id: dialog_img
+                source: "gallery/4c80a85b-0eba-4df9-b6b4-0bb18be8323f.jpg"
+                size_hint: 1, None
+                allow_stretch: True
+
+                size_hint_y: None
+                height: self.texture_size[1]
+                keep_ratio: False
+            MDBoxLayout:
+                id: dialog_comments
+                adaptive_height: True
+
+                MDIconButton:
+                    id: dialog_like_btn
+                    icon: "thumb-up"
+
+                MDLabel:
+                    id: dialog_likes
+                    text: "45"
+                    height: self.texture_size[1]
+                    pos_hint: {"center_y": .5}
+
+                MDLabel:
+                    id: dialog_comments
+                    text: "Comments(12)"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    pos_hint: {"center_y": .5}
+
+
+<Likes@MDBoxLayout>
+    MDLabel:
+        id: likes_count
+        text: "45"
+        height: self.texture_size[1]
+        pos_hint: {"center_y": .5}
+    MDIconButton:
+        id: like_btn
+        icon: "thumb-up"
+
+
+<Comment>
+    TwoLineAvatarListItem:
+        ImageLeftWidget:
+            source: "assets/avatar.png"
+#        ImageRightWidget:
+#            Likes:
+#                id: likes
+
+
+<ThreadCard>
+    canvas.before:
+        Color:
+            rgba: .7, .7, .7, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    id: thread_card
+    orientation: "vertical"
+    size_hint: .5, None
+    height: wrap.height + thread_bottom.height+20
+    focus_behavior: True
+    ripple_behavior: True
+    pos_hint: {"center_x": .5, "center_y": .5}
+    padding: "10dp", "10dp", "10dp", "10dp"
+
+    MDBoxLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        id: wrap
+        adaptive_height: True
+        orientation: "vertical"
+
+        MDBoxLayout:
+            spacing: "20dp"
+            adaptive_height: True
+            orientation: "vertical"
+
+            MDBoxLayout:
+                id: content_box
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: "10dp"
+                padding: "10dp", 0, "10dp", "10dp"
+
+                TwoLineAvatarListItem:
+                    id: thread_author
+                    text: "Author"
+                    secondary_text: "YYYY-MM-DD"
+
+                    ImageLeftWidget:
+                        source: "assets/avatar.png"
+
+                MDLabel:
+                    id: thread_title
+                    text: ""
+                    font_style: "H6"
+                    bold: True
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+
+                MDLabel:
+                    id: thread_description
+                    text: ""
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    theme_text_color: "Primary"
+
+                Image:
+                    id: thread_img
+                    source: "../images/skola-logo.png"
+
+                    size_hint: 1, None
+                    allow_stretch: True
+                    height: self.texture_size[1]
+                    keep_ratio: False
+
+        MDSeparator:
+
+        MDBoxLayout:
+            id: thread_bottom
+            adaptive_height: True
+
+            MDIconButton:
+                id: thread_like_btn
+                icon: "thumb-up"
+
+
+            MDLabel:
+                id: thread_likes
+                text: "45"
+                height: self.texture_size[1]
+                pos_hint: {"center_y": .5}
+                theme_text_color: "Primary"
+
+            MDLabel:
+                id: thread_comments
+                text: "Comments(12)"
+                size_hint_y: None
+                height: self.texture_size[1]
+                pos_hint: {"center_y": .5}
+                theme_text_color: "Primary"
+
+<ScrollList>
+    scroll_timeout : 100
+
+    MDList:
+        id: thread_list
+        padding: 0
+
+
+<FeedScreen>
+    id: feed
+    orientation: "vertical"
+    pos_hint: {"top": .9}
+    size_hint_y: .9
+    height: self.minimum_height
+
+
+
+
